@@ -109,11 +109,20 @@ open class RAGTextField: UITextField {
     /// The given value is applied to the hint and the placeholder as well.
     open override var textAlignment: NSTextAlignment {
         didSet {
-            hintLabel.textAlignment = textAlignment
+            //hintLabel.textAlignment = textAlignment
             placeholderView.textAlignment = textAlignment
             
             placeholderConstraints.clearHorizontalConstraints()
             setNeedsUpdateConstraints()
+        }
+    }
+    
+    open var hintTextAlignment: NSTextAlignment = .right {
+        didSet {
+            hintLabel.textAlignment = textAlignment
+            
+            //placeholderConstraints.clearHorizontalConstraints()
+            //setNeedsUpdateConstraints()
         }
     }
     
@@ -584,7 +593,7 @@ open class RAGTextField: UITextField {
         
         hint = nil
         hintLabel.font = font
-        hintLabel.textAlignment = textAlignment
+        hintLabel.textAlignment = hintTextAlignment
         hintLabel.lineBreakMode = .byWordWrapping
         hintLabel.numberOfLines = 0
     }
