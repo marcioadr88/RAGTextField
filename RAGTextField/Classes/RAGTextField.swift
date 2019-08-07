@@ -119,7 +119,7 @@ open class RAGTextField: UITextField {
     
     open var hintTextAlignment: NSTextAlignment = .right {
         didSet {
-            hintLabel.textAlignment = textAlignment
+            hintLabel.textAlignment = hintTextAlignment
             
             //placeholderConstraints.clearHorizontalConstraints()
             //setNeedsUpdateConstraints()
