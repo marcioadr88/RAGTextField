@@ -215,14 +215,11 @@ open class RAGTextField: UITextField {
     /// Contains a pair of constraints for the normal position and a pair for the scaled position, only one of which is active at all times.
     private let placeholderConstraints = PlaceholderConstraints()
     
-    var originalPlaceholderText: String?
-    
     /// The text value of the placeholder.
     override open var placeholder: String? {
         set {
             placeholderLabel.text = newValue
             placeholderView.invalidateIntrinsicContentSize()
-            originalPlaceholderText = newValue
         }
         get {
             return placeholderLabel.text
@@ -882,19 +879,10 @@ open class RAGTextField: UITextField {
     }
     
     private func animatePlaceholder(scaled: Bool, duration: TimeInterval) {
-        var textTransform: String?
-        
-        if scaled {
-            originalPlaceholderText = placeholderLabel.text
-            textTransform = originalPlaceholderText?.uppercased()
-        } else {
-            textTransform = originalPlaceholderText
-        }
         
         UIView.animate(withDuration: duration) { [unowned self] in
             self.updatePlaceholderConstraints(scaled: scaled)
             self.placeholderContainerView.layoutIfNeeded()
-            self.placeholderLabel.text = textTransform
         }
     }
     
@@ -980,7 +968,7 @@ open class RAGTextField: UITextField {
     private func intrinsicWidth() -> CGFloat {
         
         let textWidth = (text ?? "").size(using: font!).width
-        let placeholderWidth = (placeholder?.uppercased() ?? "").size(using: placeholderLabel.font).width
+        let placeholderWidth = (placeholder ?? "").size(using: placeholderLabel.font).width
         let width = computeLeftInsetToText() + max(textWidth, placeholderWidth) + computeRightInsetToText()
         
         return ceil(width)

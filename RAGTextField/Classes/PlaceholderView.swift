@@ -111,15 +111,10 @@ final class PlaceholderView: UIView {
     }
     
     override var intrinsicContentSize: CGSize {
-        let infinite = CGFloat.greatestFiniteMagnitude
-        var size: CGSize
         
-        if let textSize = label.text?.uppercased().size(using: label.font, availableWidth: infinite) {
-            size = textSize
-        } else {
-            size = label.systemLayoutSizeFitting(CGSize(width: infinite, height: infinite))
-        }
-
+        let infinite = CGFloat.greatestFiniteMagnitude
+        let size = label.systemLayoutSizeFitting(CGSize(width: infinite, height: infinite))
+        
         return size
     }
     
